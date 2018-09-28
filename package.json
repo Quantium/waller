@@ -1,0 +1,32 @@
+{
+  "name": "puppet",
+  "version": "0.0.1",
+  "description": "Wallpaper crawler",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quantium/waller.git"
+  },
+  "keywords": [
+    "wallpaper",
+    "crawler",
+    "puppet",
+    "puppeteer"
+  ],
+  "author": "Quantium at andres@quantium.com.mx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Quantium/waller/issues"
+  },
+  "homepage": "https://github.com/Quantium/waller#readme",
+  "dependencies": {
+    "npm": "^6.4.1",
+    "puppeteer": "^1.8.0"
+  },
+  "devDependencies": {
+    "jasmine": "^3.2.0"
+  }
+}
