@@ -61,3 +61,6 @@ typings/
 .next
 img.png
 result.csv
+
+.tags
+.tags!

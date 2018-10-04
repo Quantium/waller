@@ -17,7 +17,6 @@ console.log('puppeteer');
   // Type into search box.
   //await page.type('#searchbox input', 'Headless Chrome');
 
-  // Wait for suggest overlay to appear and click "show all results".
   const allResultsSelector = '.gui-button_full-height';
   //await page.waitForSelector(allResultsSelector);
   page.click(allResultsSelector);
