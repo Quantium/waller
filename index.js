@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+
 const puppeteer = require('puppeteer');
 const website = 'https://wallpaperscraft.com/download/black_apple_bones_skull_26511/1440x900';
 console.log('puppeteer');
@@ -17,7 +17,6 @@ console.log('puppeteer');
   // Type into search box.
   //await page.type('#searchbox input', 'Headless Chrome');
 
-  // Wait for suggest overlay to appear and click "show all results".
   const allResultsSelector = '.gui-button_full-height';
   //await page.waitForSelector(allResultsSelector);
   page.click(allResultsSelector);
