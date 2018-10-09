@@ -60,7 +60,8 @@ typings/
 # next.js build output
 .next
 img.png
+img?.png
 result.csv
 
 .tags
-.tags!
+.tags?
