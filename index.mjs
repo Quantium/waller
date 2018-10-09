@@ -21,6 +21,7 @@ async function init(website){
   });
   await getter.close();
   await conn.close();
+  //--// TODO: Load the url from the database
   init(list[0]);
 
 
