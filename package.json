@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Quantium/waller#readme",
   "dependencies": {
+    "mongodb": "^3.1.6",
     "npm": "^6.4.1",
     "puppeteer": "^1.8.0",
     "redis": "^2.8.0"

@@ -1,11 +1,22 @@
 import {UrlGetter} from './src/UrlGetter';
+import {MongoConn} from './src/MongoConn';
 const website = 'https://wallpaperscraft.com/download/black_apple_bones_skull_26511/1440x900';
+const conn = new MongoConn();
+const getter = new UrlGetter(website,'base');
 
-function getUrls(w = website){
-  let getter = new UrlGetter(w,'base');
-  getter.list.then(value => {
-    console.log("list::",value);
+async function init(){
+  await conn.connect();
+  let list = await getter.crawl().catch((err)=>{
+    console.error(err);
   });
-}
 
-getUrls(website);
+  let raw  = [];
+  for (let l of list) {
+    raw.push({url:l,created: new Date().getTime()});
+  }
+  conn.db.collection('urls').insertMany(raw, function(err, r) {
+    //console.error("BulkWriteError");
+  });
+
+}
+init();
