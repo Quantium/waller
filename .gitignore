@@ -63,6 +63,4 @@ img.png
 result.csv
 
 .tags
-.tags*
-
-img*.png
+.tags!
