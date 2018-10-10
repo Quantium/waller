@@ -19,10 +19,6 @@ export class UrlGetter {
     }
     let page = await this._browser.newPage();
     await page.goto(this._url, {waitUntil: 'networkidle2'});
-    //const allResultsSelector = '.gui-button_full-height';
-    //page.click(allResultsSelector);
-    //await page.waitForNavigation({waitUntil:'networkidle2'});
-    //await page.goBack({waitUntil:'networkidle2'});
 
     const wallpapers = await page.$$('.wallpapers__link');
 
