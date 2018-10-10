@@ -34,6 +34,6 @@ export class UrlGetter {
   }
   async close(){
     this._browser.close();
-    console.log('closed')
+    console.log('Navigator Closed')
   }
 }

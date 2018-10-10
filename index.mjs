@@ -7,6 +7,11 @@ async function init(website){
   let getter = await new UrlGetter(website);
   let conn = new MongoConn();
   await conn.connect();
+  let urls = conn.db.collection('urls');
+  urls.findOneAndUpdate({"url": website}, {$set: {"processed": true}},  function(err,doc) {
+       if (err) { throw err; }
+     });
+
   let list = await getter.crawl();
 
   let raw  = [];
@@ -16,13 +21,25 @@ async function init(website){
 
   }
 
-  conn.db.collection('urls').insertMany(raw, function(err, r) {
+  if(list.length == 0){
+    console.warn("There are no links to be processed");
+    await getter.close();
+    await conn.close();
+    return;
+  }
+  urls.insertMany(raw, function(err, r) {
     //If the error type is a BulkWriteError, then the url is reapeated in the database
-    console.error("BulkWriteError");
+    console.info("BulkWriteError");
   });
 
-  await conn.db.collection('urls').findOne({"processed":{$exists:false}}, function(err, document) {
-    console.log(document.url);
+  await urls.findOne({"processed":{$exists:false}}, function(err, document) {
+    if (err) { console.warn(err); }
+    if (document == null) {
+      console.warn("All the records were processed");
+      getter.close();
+      conn.close();
+      return;
+    }
     init(document.url);
   });
 
