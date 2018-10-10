@@ -30,8 +30,27 @@ export class UrlGetter {
     return texts;
 
   }
+
+async download(url){
+  if(this._browser == undefined){
+    this._browser = await puppeteer.launch();
+  }
+  let page = await this._browser.newPage();
+  await page.goto(url, {waitUntil: 'networkidle2'});
+  let allResultsSelector = '.gui-button_full-height';
+  page.click(allResultsSelector);
+  await page.waitForNavigation({waitUntil:'networkidle2'});
+  return await page.mainFrame().url();
+}
+
   async close(){
-    this._browser.close();
-    console.log('Navigator Closed')
+    if(this._browser != undefined){
+      this._browser = await puppeteer.launch();
+      this._browser.close();
+      console.log('Navigator Closed')
+    }
+    else {
+      console.log('No Navigator to Close');
+    }
   }
 }
