@@ -15,13 +15,18 @@ async function init(website){
     raw.push({url:l,created: new Date().getTime()});
 
   }
+
   conn.db.collection('urls').insertMany(raw, function(err, r) {
     //If the error type is a BulkWriteError, then the url is reapeated in the database
     console.error("BulkWriteError");
   });
+
+  await conn.db.collection('urls').findOne({"processed":{$exists:false}}, function(err, document) {
+    console.log(document.url);
+    init(document.url);
+  });
+
   await getter.close();
   await conn.close();
-
-
 }
 init('https://wallpaperscraft.com/download/black_apple_bones_skull_26511/1440x900');
