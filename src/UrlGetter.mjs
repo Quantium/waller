@@ -20,9 +20,9 @@ export class UrlGetter {
     let page = await this._browser.newPage();
     await page.goto(this._url, {waitUntil: 'networkidle2'});
 
-    const wallpapers = await page.$$('.wallpapers__link');
+    let wallpapers = await page.$$('.wallpapers__link');
 
-    const texts = await page.evaluate(() => {
+    let texts = await page.evaluate(() => {
         return [...document.body.querySelectorAll('.wallpapers__link')]
                  .map(element => element.href);
       });
