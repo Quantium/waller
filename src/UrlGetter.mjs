@@ -14,7 +14,9 @@ export class UrlGetter {
   }
 
   async crawl(){
-    this._browser = await puppeteer.launch();
+    if(this._browser == undefined){
+      this._browser = await puppeteer.launch();
+    }
     let page = await this._browser.newPage();
     await page.goto(this._url, {waitUntil: 'networkidle2'});
     //const allResultsSelector = '.gui-button_full-height';
