@@ -110,7 +110,7 @@ async function downloadNext(){
 
       request(imageUrl).pipe(fs.createWriteStream(wpImg).on('close', ()=>{
         console.log('Downloaded::',wpImg);
-        urls.findOneAndUpdate({"url": document.url}, {$set: {"downloaded": wpImg}},  function(err,doc) {
+        urls.findOneAndUpdate({"url": document.url}, {$set: {"downloaded": wpImg}},  (err,doc) => {
              if (err) { throw err; }
         });
       }));
