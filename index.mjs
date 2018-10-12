@@ -16,15 +16,19 @@ const ini_url = 'https://wallpaperscraft.com/download/black_apple_bones_skull_26
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
 
-  //for (let i = 0; i < numCPUs; i++) {
-  for (let i = 0; i < 1; i++) {
-    cluster.fork();
-  }
-  cluster.on('exit', (worker, code, signal) => {
-    console.log(`worker ${worker.process.pid} died`);
-  });
+    init(ini_url)
+    .then(()=>{
 
-  init(ini_url);
+      //for (let i = 0; i < numCPUs; i++) {
+      for (let i = 0; i < 1; i++) {
+        cluster.fork();
+      }
+
+    })
+
+    cluster.on('exit', (worker, code, signal) => {
+      console.log(`worker ${worker.process.pid} died`);
+    });
 } else {
   console.log(`Worker ${process.pid} started`);
   downloadNext()
@@ -60,7 +64,7 @@ async function init(website){
     console.warn("There are no links to be processed");
     await getter.close();
     await conn.close();
-    return;
+    return 0;
   }
   urls.insertMany(raw, function(err, r) {
     //If the error type is a BulkWriteError, then the url is reapeated in the database
@@ -73,9 +77,9 @@ async function init(website){
       console.warn("All the records were processed");
       getter.close();
       conn.close();
-      return;
+      return 0;
     }
-    init(document.url);
+    return init(document.url);
   });
 
   await getter.close();
